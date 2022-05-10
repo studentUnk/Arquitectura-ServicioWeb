@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class SalaController extends Controller
 {
+
+    /**
+     * Retornar toda la informacion de una sala en especifico
+     */
+    public function getSala($sala_i)
+    {
+        $sala = Sala::findOrFail($sala_i);
+        return $sala;
+    }
+
     /**
      * Display a listing of the resource.
      *

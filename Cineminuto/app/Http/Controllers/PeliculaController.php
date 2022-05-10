@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class PeliculaController extends Controller
 {
+
+    /**
+     * Retornar toda la informacion de una pelicula en especifico
+     */
+    public function getPelicula($pelicula_i)
+    {
+        $pelicula = Pelicula::findOrFail($pelicula_i);
+        return $pelicula;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +30,12 @@ class PeliculaController extends Controller
         $datos['peliculas'] = Pelicula::paginate(5);
 
         return view('pelicula.index',$datos);
+    }
+
+    public function indexAPI()
+    {
+        $peliculas = Pelicula::all();
+        return $peliculas;
     }
 
     /**
@@ -74,6 +90,18 @@ class PeliculaController extends Controller
         return redirect('pelicula')->with('mensaje','La pelicula ha sido agregada exitosamente');
     }
 
+    public function storeAPI(Request $request)
+    {
+        $peliculas = new Pelicula();
+        $peliculas->nombre_pelicula = $request->nombre_pelicula;
+        $peliculas->director_pelicula = $request->director_pelicula;
+        $peliculas->fecha_publicacion_pelicula = $request->fecha_publicacion_pelicula;
+        $peliculas->duracion_pelicula = $request->duracion_pelicula;
+
+        $peliculas->save();
+        return "OK";
+    }
+
     /**
      * Display the specified resource.
      *
@@ -121,6 +149,19 @@ class PeliculaController extends Controller
         return redirect('pelicula')->with('mensaje','La pelicula ha sido actualizada exitosamente'); // Redirigir a pagina pelicula index
     }
 
+    public function updateAPI(Request $request)
+    {
+        $peliculas = Pelicula::findOrFail($request->numero_pelicula);
+        $peliculas->nombre_pelicula = $request->nombre_pelicula;
+        $peliculas->director_pelicula = $request->director_pelicula;
+        $peliculas->fecha_publicacion_pelicula = $request->fecha_publicacion_pelicula;
+        $peliculas->duracion_pelicula = $request->duracion_pelicula;
+
+        $peliculas->save();
+
+        return $peliculas;
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -134,6 +175,15 @@ class PeliculaController extends Controller
         Pelicula::destroy($numero_pelicula); // Eliminar en base a llave primaria
 
         return redirect('pelicula')->with('mensaje','La pelicula ha sido eliminada exitosamente'); // Redirigir a pagina pelicula index
+    }
+
+    public function destroyAPI(Request $request)
+    //public function destroyAPI($numero_pelicula)
+    {
+        $peliculas = Pelicula::destroy($request->numero_pelicula);
+        //$peliculas = Pelicula::destroy($numero_pelicula);
+        //return "Pelicula eliminada" . $peliculas;
+        return "La pelicula con llave primaria " . $peliculas . " ha sido eliminada";
     }
 
     private function validarDatosFormulario(Request $request){

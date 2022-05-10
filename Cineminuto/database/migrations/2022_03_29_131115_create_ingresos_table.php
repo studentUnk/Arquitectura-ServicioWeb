@@ -17,10 +17,10 @@ return new class extends Migration
             # primary key
             $table->integer('numero_ingreso',true,false);
 
-            $table->integer('documento_cliente')->nullable();
+            $table->unsignedBigInteger('id_cliente');
             
             # foreign keys
-            $table->foreign('documento_cliente')->references('documento_cliente')->on('clientes');
+            $table->foreign('id_cliente')->references('id')->on('users');
             
             $table->timestamps();
         });

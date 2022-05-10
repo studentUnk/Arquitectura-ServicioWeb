@@ -7,6 +7,29 @@ use Illuminate\Http\Request;
 
 class IngresoController extends Controller
 {
+
+    /**
+     * Obtener ultimo registro de un usuario
+     */
+    public function obtener_ultimo_registro($id_cliente)
+    {
+        $numero_ingreso = Ingreso::where('id_cliente',$id_cliente)->orderBy('numero_ingreso', 'desc')->limit(1)->get();
+        return $numero_ingreso;
+    }
+    
+    /**
+     * Crear un ingreso de compra del cliente
+     */
+    public function crear_ingreso($id_cliente)
+    {
+    
+        $ingreso = new Ingreso();
+        $ingreso->id_cliente = $id_cliente;
+        $ingreso->save();
+        
+        return True;
+    }
+
     /**
      * Display a listing of the resource.
      *

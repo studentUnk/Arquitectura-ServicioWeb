@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('asientos', function (Blueprint $table) {
             # primary key
-            $table->string('numero_asiento')->primary();
-
+            $table->integer('numero_asiento',true,false);
+            
             $table->string('disponible_asiento');
+            $table->integer('posicion_asiento');
             $table->integer('numero_sala');
 
             #foreign key

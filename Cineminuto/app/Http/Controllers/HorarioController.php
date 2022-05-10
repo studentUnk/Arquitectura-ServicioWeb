@@ -12,9 +12,11 @@ class HorarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($num_horario)
     {
         //
+        $horario = Horario::findOrFail($num_horario);
+        return $horario;
     }
 
     /**
@@ -81,5 +83,13 @@ class HorarioController extends Controller
     public function destroy(Horario $horario)
     {
         //
+    }
+
+    /**
+     * Obtener datos de un horario en especifico
+     */
+    public function getHorario($num_horario)
+    {
+        
     }
 }

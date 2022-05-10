@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->integer('numero_ingreso');
             $table->integer('numero_funcion');
-            $table->string('numero_asiento');
+            $table->integer('numero_asiento');
             $table->double('valor_funcion',13,2);
 
             # foreign key

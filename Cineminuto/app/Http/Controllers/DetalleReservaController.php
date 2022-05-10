@@ -7,6 +7,31 @@ use Illuminate\Http\Request;
 
 class DetalleReservaController extends Controller
 {
+
+    /**
+     * Buscar todos los asientos registrados para una funcion
+     */
+    public function buscarCompraFuncion($numero_funcion)
+    {
+        $reserva = Detalle_reserva::all()->where('numero_funcion', $numero_funcion);
+        return $reserva;
+    }
+
+    /**
+     * Crear reserva asociada a una venta
+     */
+    public function crear_reserva($numero_ingreso, $numero_funcion, $numero_asiento, $valor_funcion)
+    {
+        $reserva = new Detalle_reserva();
+        $reserva->numero_ingreso = $numero_ingreso;
+        $reserva->numero_funcion = $numero_funcion;
+        $reserva->numero_asiento = $numero_asiento;
+        $reserva->valor_funcion = $valor_funcion;
+        $reserva->save();
+        
+        return True;
+    }
+
     /**
      * Display a listing of the resource.
      *

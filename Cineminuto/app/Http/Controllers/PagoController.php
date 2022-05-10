@@ -7,6 +7,22 @@ use Illuminate\Http\Request;
 
 class PagoController extends Controller
 {
+
+    /**
+     * Crear un pago de compra del cliente
+     */
+    public function crear_pago($valor_total_pago, $numero_ingreso)
+    {
+    
+        $pago = new Pago();
+        $pago->numero_ingreso = $numero_ingreso;
+        $pago->valor_total_pago = $valor_total_pago;
+
+        $pago->save();
+        
+        return True;
+    }
+
     /**
      * Display a listing of the resource.
      *
